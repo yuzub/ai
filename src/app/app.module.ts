@@ -14,12 +14,14 @@ import { AppComponent } from './app.component';
 import { WelcomeComponent } from './home/welcome.component';
 import { InstructorListComponent } from './instructors/instructor-list.component';
 import { FeedbackListComponent } from './feedbacks/feedback-list.component';
+
 import { AfDbService } from './shared/af-db.service';
+import { StarComponent } from './shared/star.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent, WelcomeComponent, InstructorListComponent, FeedbackListComponent
+    AppComponent, WelcomeComponent, InstructorListComponent, FeedbackListComponent, StarComponent
   ],
   imports: [
     BrowserModule,

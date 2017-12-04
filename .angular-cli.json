@@ -20,6 +20,7 @@
       "prefix": "ai",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.solar.min.css",
+        "../node_modules/font-awesome/css/font-awesome.min.css",
         "styles.css"
       ],
       "scripts": [],

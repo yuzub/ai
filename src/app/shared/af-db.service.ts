@@ -16,6 +16,7 @@ export class AfDbService {
 
   getInstructors(listPath: string): Observable<any[]> {
     return this.afDb.list(listPath).valueChanges();
+    // add handle errors?
   }
 
   getFeedbacks() {}

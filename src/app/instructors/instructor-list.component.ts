@@ -29,15 +29,13 @@ export class InstructorListComponent implements OnInit {
 
   instructors$: Observable<IInstructor[]>;
 
-  constructor(private afDb: AfDbService) {
-    this.instructors$ = this.getInstructors('/instructors');
-    this.instructors$.subscribe(instructors => {
-      this.filteredInstructors = this.instructors = instructors;
-    },
-      error => this.errorMessage = <any>error);
-  }
+  constructor(private afDb: AfDbService) { }
 
   ngOnInit() {
+    this.instructors$ = this.getInstructors('/instructors');
+    this.instructors$.subscribe(
+      instructors => this.filteredInstructors = this.instructors = instructors,
+      error => this.errorMessage = <any>error);
   }
 
   getInstructors(listPath: string): Observable<any[]> {
