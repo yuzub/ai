@@ -1,0 +1,49 @@
+<div class="card mb-3">
+
+  <div class="card-header text-white bg-primary">{{pageTitle}}</div>
+
+  <div class="card-body">
+    <!-- <h4 class="card-title">Primary card title</h4> -->
+    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+
+    <div class="row">
+      <div class="col-md-2">Filter by:</div>
+      <div class="col-md-4">
+        <input type="text" class="form-control" [(ngModel)]="carFilter">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">Filtered by: {{carFilter}}</div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped" *ngIf="instructors$ | async">
+        <thead>
+          <tr>
+            <th scope="col">
+              <button class="btn btn-primary" (click)="showPhoto = !showPhoto">{{showPhoto ? 'Hide' : 'Show'}} Image</button>
+            </th>
+            <th scope="col">Instructor Name</th>
+            <th scope="col">Car</th>
+            <th scope="col">Gearbox</th>
+            <th scope="col">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let instructor of filteredInstructors">
+            <td>
+              <img *ngIf="showPhoto" [src]="instructor.photoUrl" [title]="instructor.instructorName | uppercase"
+                [style.width.px]="photoWidth" [style.margin.px]="photoMargin">
+            </td>
+            <td>{{instructor.instructorName}}</td>
+            <td>{{instructor.car}}</td>
+            <td>{{instructor.gearbox}}</td>
+            <td>{{instructor.price90min | currency: 'UAH' : code : '1.2-2'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
