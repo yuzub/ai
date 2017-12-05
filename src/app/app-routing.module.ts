@@ -7,9 +7,11 @@ import { FeedbackListComponent } from './feedbacks/feedback-list.component';
 import { InstructorDetailComponent } from './instructors/instructor-detail.component';
 import { PageNotFoundComponent } from './shared/page-not-found.component';
 
+import { InstructorGuardService } from './instructors/instructor-guard.service';
+
 const routes: Routes = [
   { path: 'instructors', component: InstructorListComponent },
-  { path: 'instructors/:id', component: InstructorDetailComponent },
+  { path: 'instructors/:id', canActivate: [InstructorGuardService], component: InstructorDetailComponent },
   { path: 'feedbacks', component: FeedbackListComponent },
   { path: 'welcome', component: WelcomeComponent },
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
