@@ -13,15 +13,17 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './home/welcome.component';
 import { InstructorListComponent } from './instructors/instructor-list.component';
+import { InstructorDetailComponent } from './instructors/instructor-detail.component';
 import { FeedbackListComponent } from './feedbacks/feedback-list.component';
 
 import { AfDbService } from './shared/af-db.service';
 import { StarComponent } from './shared/star.component';
+import { PageNotFoundComponent } from './shared/page-not-found.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent, WelcomeComponent, InstructorListComponent, FeedbackListComponent, StarComponent
+    AppComponent, WelcomeComponent, InstructorListComponent, InstructorDetailComponent, FeedbackListComponent, StarComponent, PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

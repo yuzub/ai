@@ -36,7 +36,7 @@
               <img *ngIf="showPhoto" [src]="instructor.photoUrl" [title]="instructor.instructorName | uppercase"
                 [style.width.px]="photoWidth" [style.margin.px]="photoMargin">
             </td>
-            <td>{{instructor.instructorName}}</td>
+            <td><a [routerLink]="['/instructors', instructor.instructorId]">{{instructor.instructorName}}</a></td>
             <td>{{instructor.car}}</td>
             <td>{{instructor.gearbox}}</td>
             <td>{{instructor.price90min | currency: 'UAH' : code : '1.2-2'}}</td>

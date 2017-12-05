@@ -1,4 +1,5 @@
 export interface IInstructor {
+  instructorId: string;
   instructorName: string;
   photoUrl: string;
   car: string;
