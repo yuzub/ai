@@ -34,7 +34,10 @@ export class InstructorListComponent implements OnInit {
   ngOnInit() {
     this.instructors$ = this.getInstructors('/instructors');
     this.instructors$.subscribe(
-      instructors => this.filteredInstructors = this.instructors = instructors,
+      instructors => {
+        this.filteredInstructors = this.instructors = instructors;
+        // console.log(this.filteredInstructors);
+      },
       error => this.errorMessage = <any>error);
   }
 

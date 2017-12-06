@@ -1,5 +1,5 @@
-<!-- <div class="card mb-3" *ngIf="instructor"> -->
-<div class="card mb-3">
+<div class="card mb-3" *ngIf="instructor">
+<!-- <div class="card mb-3"> -->
 
   <div class="card-header text-white bg-primary">{{pageTitle + ': ' + instructor?.instructorName}}</div>
 
@@ -8,30 +8,30 @@
     <h4 class="card-title">Primary card title</h4>
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
 
-    <div class="col-md-9">
+    <div class="col-md-8">
       <div class="row">
         <div class="col-md-3">Instructor Name:</div>
-        <div class="col-md-6"></div>
+        <div class="col-md-6">{{instructor.instructorName}}</div>
       </div>
       <div class="row">
         <div class="col-md-3">Car:</div>
-        <div class="col-md-6"></div>
+        <div class="col-md-6">{{instructor.car}}</div>
       </div>
       <div class="row">
         <div class="col-md-3">Gearbox:</div>
-        <div class="col-md-6"></div>
+        <div class="col-md-6">{{instructor.gearbox}}</div>
       </div>
       <div class="row">
         <div class="col-md-3">Cityarea:</div>
-        <div class="col-md-6"></div>
+        <div class="col-md-6">{{instructor.cityarea}}</div>
       </div>
       <div class="row">
         <div class="col-md-3">Price:</div>
-        <div class="col-md-6"></div>
+        <div class="col-md-6">{{instructor.price90min}}</div>
       </div>
       <div class="row">
         <div class="col-md-3">Phone:</div>
-        <div class="col-md-6"></div>
+        <div class="col-md-6">{{instructor.phone}}</div>
       </div>
     </div>
 
