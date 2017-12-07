@@ -16,7 +16,7 @@ export class InstructorDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private afDb: AfDbService) {}
 
   ngOnInit() {
-    let id = this.route.snapshot.paramMap.get('id');
+    let id: string = this.route.snapshot.paramMap.get('id');
     this.pageTitle += `: ${id}`;
 
     this.getInstructor(id)

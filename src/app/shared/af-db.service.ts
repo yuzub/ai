@@ -1,35 +1,42 @@
 import { Injectable } from "@angular/core";
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from "rxjs/Observable";
+
 import { IInstructor } from "../instructors/instructor";
 
 @Injectable()
 export class AfDbService {
-  constructor(private afDb: AngularFireDatabase) {}
+  instructorsRef: AngularFireList<IInstructor>;
+  // instructorRef: Observable<IInstructor[]>;
+
+  constructor(private afDb: AngularFireDatabase) {
+    this.instructorsRef = this.afDb.list<IInstructor>('instructors');
+  }
 
   // getInstructor(id: string): Observable<any> {
   //   return this.afDb.object('instructors/' + id).valueChanges();
   // }
 
-  getInstructor(id: string): Observable<any>  {
-    return this.afDb.object('instructors/' + id).snapshotChanges()
+  getInstructor(key: string): Observable<IInstructor>  {
+    return this.afDb.object<IInstructor>('instructors/' + key).snapshotChanges()
       .map(action => ({ key: action.key, ...action.payload.val() }));
 
   }
 
-  createInstructor() {}
+  createInstructor(i: IInstructor) {
+    this.instructorsRef.push(i);
+  }
 
-  updateInstructor() {}
+  updateInstructor(key: string, i: IInstructor) {
+    this.instructorsRef.update(key, i);
+  }
 
-  deleteInstructor() {}
+  deleteInstructor(key: string) {
+    this.instructorsRef.remove(key);
+  }
 
-  // getInstructors(listPath: string): Observable<any[]> {
-  //   return this.afDb.list(listPath).valueChanges();
-  //   // add handle errors?
-  // }
-
-  getInstructors(listPath: string): Observable<any[]> {
-    return this.afDb.list(listPath).snapshotChanges().map(actions => {
+  getInstructors(): Observable<IInstructor[]> {
+    return this.instructorsRef.snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, ...action.payload.val() }));
     });
     // add handle errors?

@@ -32,7 +32,7 @@ export class InstructorListComponent implements OnInit {
   constructor(private afDb: AfDbService) { }
 
   ngOnInit() {
-    this.instructors$ = this.getInstructors('/instructors');
+    this.instructors$ = this.getInstructors();
     this.instructors$.subscribe(
       instructors => {
         this.filteredInstructors = this.instructors = instructors;
@@ -41,8 +41,8 @@ export class InstructorListComponent implements OnInit {
       error => this.errorMessage = <any>error);
   }
 
-  getInstructors(listPath: string): Observable<any[]> {
-    return this.afDb.getInstructors(listPath);
+  getInstructors(): Observable<any[]> {
+    return this.afDb.getInstructors();
   }
 
   performFilter(filterBy: string): IInstructor[] {
