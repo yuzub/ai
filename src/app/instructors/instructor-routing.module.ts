@@ -4,11 +4,13 @@ import { RouterModule, Routes } from "@angular/router";
 import { InstructorListComponent } from "./instructor-list.component";
 import { InstructorDetailComponent } from "./instructor-detail.component";
 import { InstructorEditComponent } from "./instructor-edit.component";
+import { InstructorCreateComponent } from "./instructor-create.component";
 
 import { InstructorGuardService } from "./instructor-guard.service";
 
 const routes: Routes = [
   { path: 'instructors', component: InstructorListComponent },
+  { path: 'instructors/new', component: InstructorCreateComponent },
   { path: 'instructors/:id', canActivate: [InstructorGuardService], component: InstructorDetailComponent },
   { path: 'instructors/:id/edit', component: InstructorEditComponent },
 ]
