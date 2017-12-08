@@ -12,9 +12,6 @@
         <input type="text" class="form-control" [(ngModel)]="carFilter">
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-6">Filtered by: {{carFilter}}</div>
-    </div>
 
     <div class="table-responsive">
       <table class="table table-striped" *ngIf="instructors$ | async">

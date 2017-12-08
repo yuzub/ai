@@ -29,7 +29,7 @@ export class InstructorListComponent implements OnInit {
 
   instructors$: Observable<IInstructor[]>;
 
-  constructor(private afDb: AfDbService) { }
+  constructor(private afDbService: AfDbService) { }
 
   ngOnInit() {
     this.instructors$ = this.getInstructors();
@@ -42,7 +42,7 @@ export class InstructorListComponent implements OnInit {
   }
 
   getInstructors(): Observable<any[]> {
-    return this.afDb.getInstructors();
+    return this.afDbService.getInstructors();
   }
 
   performFilter(filterBy: string): IInstructor[] {

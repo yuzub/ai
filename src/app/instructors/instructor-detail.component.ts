@@ -13,16 +13,16 @@ export class InstructorDetailComponent implements OnInit {
   pageTitle: string = 'Instructor Detail';
   instructor: IInstructor;
 
-  constructor(private route: ActivatedRoute, private router: Router, private afDb: AfDbService) {}
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private afDb: AfDbService) {}
 
   ngOnInit() {
-    let id: string = this.route.snapshot.paramMap.get('id');
+    let id: string = this.activatedRoute.snapshot.paramMap.get('id');
     this.pageTitle += `: ${id}`;
 
     this.getInstructor(id)
-      .subscribe(instructor => {
-        console.log(instructor);
-        this.instructor = instructor;
+      .subscribe(i => {
+        // console.log(i);
+        this.instructor = i;
       });
   }
 

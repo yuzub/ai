@@ -1,4 +1,4 @@
-<div class="card mb-3">
+<div class="card mb-3" *ngIf="instructor">
 
   <div class="card-header text-white bg-primary">{{pageTitle + ': ' + instructor?.instructorName}}</div>
 
@@ -9,7 +9,7 @@
     <div class="col-md-8">
       <div class="row">
         <div class="col-md-3">Instructor Name:</div>
-        <div class="col-md-6"></div>
+        <div class="col-md-6">{{instructor.instructorName}}</div>
       </div>
       <div class="row">
         <div class="col-md-3">Car:</div>
@@ -33,13 +33,63 @@
       </div>
     </div>
 
-  </div>
+
+    <form class="form-horizontal" novalidate (ngSubmit)="save2in1(instructor)" #instructorForm="ngForm">
+        <fieldset>
+
+          <div class="form-group" [ngClass]="{'has-error': (firstNameVar.touched || firstNameVar.dirty) && !firstNameVar.valid }">
+            <label class="col-md-2 control-label" for="firstNameId">First Name</label>
+
+            <div class="col-md-8">
+              <input class="form-control" id="firstNameId" type="text" placeholder="First Name (required)"
+                required minlength="3" [(ngModel)]=instructor.instructorName
+                name="firstName" #firstNameVar="ngModel" />
+              <span class="help-block" *ngIf="(firstNameVar.touched || firstNameVar.dirty) && firstNameVar.errors">
+                <span *ngIf="firstNameVar?.errors.required">
+                  Please enter your first name.
+                </span>
+                <span *ngIf="firstNameVar?.errors.minlength">
+                  The first name must be longer than 3 characters.
+                </span>
+              </span>
+            </div>
+          </div>
+
+
+
+          <div class="form-group">
+            <div class="">
+              <span>
+                <button class="btn btn-primary" type="submit" [disabled]="!instructorForm.valid">
+                  Save
+                </button>
+              </span>
+
+            </div>
+          </div>
+        </fieldset>
+      </form>
+
+    </div>
+
+    <div>
+      Dirty: {{ instructorForm.dirty }}
+      <br> Touched: {{ instructorForm.touched }}
+      <br> Valid: {{ instructorForm.valid }}
+      <br> Value: {{ instructorForm.value | json }}
+    </div>
+
 
   <div class="card-footer">
-    <button class="btn btn-default btn-sm" (click)="onBack()">
-      <i class="fa fa-chevron-left" aria-hidden="true"></i>Instructor List
+    <button class="btn btn-default" (click)="onBack()">
+      <i class="fa fa-chevron-left" aria-hidden="true"></i> Cancel
     </button>
-    <button class="btn btn-primary btn-sm" (click)="updateInstructor()">Save</button>
+    <button class="btn btn-primary" (click)="updateInstructor()">
+      <i class="fa fa-floppy-o" aria-hidden="true"></i>
+    </button>
+    <button class="btn btn-danger">
+      <i class="fa fa-trash-o" aria-hidden="true"></i>
+    </button>
   </div>
 
 </div>
