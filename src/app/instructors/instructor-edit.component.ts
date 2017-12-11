@@ -1,19 +1,23 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs/Observable";
+import { Subscription } from "rxjs/Subscription";
 
 import { AfDbService } from "../shared/af-db.service";
-import { IInstructor } from "./instructor";
+import { IInstructor, Instructor } from "./instructor";
 import { NgForm } from "@angular/forms";
 
 @Component({
   templateUrl: './instructor-edit.component.html'
 })
-export class InstructorEditComponent implements OnInit {
+export class InstructorEditComponent implements OnInit, OnDestroy {
+  subscriptioN: Subscription;
   isNewInstructor: boolean;
   pageTitle: string = 'Instructor Edit';
-  instructor: IInstructor;
+  instructor: IInstructor = new Instructor();
   instructor$: Observable<IInstructor>;
+
+  hasGearboxError: boolean = false;
 
   constructor(
     private afDbService: AfDbService,
@@ -27,34 +31,42 @@ export class InstructorEditComponent implements OnInit {
 
     if (!this.isNewInstructor) {
       this.instructor$ = this.getInstructor(id);
-      this.instructor$
-        .subscribe(i => {
-          console.log(i);
-          this.instructor = i;
-        });
     } else {
       this.instructor$ = Observable.of({}) as Observable<IInstructor>;
-      this.instructor$
-        .subscribe(i => {
-          console.log(i);
-          this.instructor = i;
-        });
     }
 
+    this.subscriptioN = this.instructor$
+    .subscribe(i => {
+      console.log(i.instructorName);
+      this.instructor = i;
+    });
+
+  }
+
+  ngOnDestroy() {
+    this.subscriptioN.unsubscribe();
   }
 
   getInstructor(id: string): Observable<IInstructor> {
     return this.afDbService.getInstructor(id);
   }
 
-  save2in1(instructor) {
-    this.isNewInstructor
+  saveInstructor2in1(instructor: IInstructor) {
+    const save = this.isNewInstructor
       ? this.afDbService.createInstructor(instructor)
       : this.afDbService.updateInstructor(instructor);
+      save.then(_ => {
+        console.log('saveInstructor 2in1 navigate to /instructors');
+        this.router.navigate(['/instructors']);
+      });
   }
 
-  updateInstructor(instructor: IInstructor) {
-    this.afDbService.updateInstructor(instructor);
+  deleteInstructor(instructor: IInstructor) {
+    this.afDbService.deleteInstructor(instructor)
+      .then(_ => {
+        console.log('deleteInstructor navigate to /instructors');
+        this.router.navigate(['/instructors']);
+      });
   }
 
   onBack() {
@@ -64,5 +76,10 @@ export class InstructorEditComponent implements OnInit {
   save(instructorForm: NgForm) {
     console.log(instructorForm.form);
     console.log('Saved: ' + JSON.stringify(instructorForm.value));
+  }
+
+  validateGearbox(value) {
+    console.log(`gearbox: ${this.instructor.gearbox} , value: ${value}`);
+    this.hasGearboxError = !value;
   }
 }

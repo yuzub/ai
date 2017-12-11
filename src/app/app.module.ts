@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
+import { AuthModule } from './auth/auth.module';
 import { InstructorModule } from './instructors/instructor.module';
 
 import { AngularFireModule } from 'angularfire2';
@@ -25,6 +26,7 @@ import { AfDbService } from './shared/af-db.service';
   ],
   imports: [
     BrowserModule,
+    AuthModule,
     InstructorModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything

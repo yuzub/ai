@@ -1,17 +1,22 @@
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
 import { Observable } from "rxjs/Observable";
+import "rxjs/add/operator/catch";
 
 import { IInstructor } from "../instructors/instructor";
 
 @Injectable()
 export class AfDbService {
   instructorsRef: AngularFireList<IInstructor>;
+  feedbacksRef: AngularFireList<any>;
+
   objectRef: AngularFireObject<any>;
   object: Observable<any>;
 
   constructor(private afDb: AngularFireDatabase) {
     this.instructorsRef = this.afDb.list<IInstructor>('instructors');
+
+    this.feedbacksRef = this.afDb.list<any>('feedbacks');
 
     // this.objectRef = this.afDb.object<any>('object');
     // this.object = this.objectRef.snapshotChanges()
@@ -38,24 +43,27 @@ export class AfDbService {
   //   return this.afDb.object('instructors/' + id).valueChanges();
   // }
 
+// ------------------ Instructors -----------------------------
+
   getInstructor(key: string): Observable<IInstructor> {
     return this.afDb.object<IInstructor>(`instructors/${key}`).snapshotChanges()
-      .map(action => ({ key: action.key, ...action.payload.val() }));
+      .map(action => ({ key: action.key, ...action.payload.val() }))
+      .catch(this.errorHandler);
   }
 
   createInstructor(i: IInstructor) {
-    this.instructorsRef.push(i)
+    return this.instructorsRef.push(i)
       .then(_ => console.log(`create instructor ${i.instructorName} - success`));
   }
 
   updateInstructor(i: IInstructor) {
-    this.instructorsRef.update(i.key, i)
+    return this.instructorsRef.update(i.key, i)
       .then(_ => console.log(`update instructor ${i.instructorName} - success`))
       .catch(error => console.log(error));
   }
 
   deleteInstructor(i: IInstructor) {
-    this.instructorsRef.remove(i.key)
+    return this.instructorsRef.remove(i.key)
       .then(_ => console.log(`remove instructor ${i.instructorName} - success`))
       .catch(error => console.log(error));
   }
@@ -63,9 +71,23 @@ export class AfDbService {
   getInstructors(): Observable<IInstructor[]> {
     return this.instructorsRef.snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, ...action.payload.val() }));
-    });
-    // add handle errors?
+    })
+      .catch(this.errorHandler);
   }
 
+// ------------------ Feedbacks -----------------------------
+
   getFeedbacks() { }
+
+  createFeedback(f: any) {
+    console.info(f);
+    return this.feedbacksRef.push(f)
+      .then(_ => console.log(`create instructor ${f.firstName} - success`));
+  }
+
+  // handleError(error: any) - rename???
+  private errorHandler(error) {
+    console.log(error);
+    return Observable.throw(error);
+  }
 }

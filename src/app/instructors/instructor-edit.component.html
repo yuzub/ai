@@ -1,95 +1,82 @@
-<div class="card mb-3" *ngIf="instructor">
+<form class="" novalidate (ngSubmit)="saveInstructor2in1(instructor)" #instructorForm="ngForm">
+  <!-- <form class="" novalidate (ngSubmit)="save(instructorForm)" #instructorForm="ngForm"> -->
+  <fieldset>
 
-  <div class="card-header text-white bg-primary">{{pageTitle + ': ' + instructor?.instructorName}}</div>
+    <div class="card mb-3" *ngIf="instructor">
+      <div class="card-header text-white bg-primary">{{pageTitle + ': ' + instructor?.instructorName}}</div>
 
-  <div class="card-body">
-    <h4 class="card-title">Primary card title</h4>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <div class="card-body">
 
-    <div class="col-md-8">
-      <div class="row">
-        <div class="col-md-3">Instructor Name:</div>
-        <div class="col-md-6">{{instructor.instructorName}}</div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">Car:</div>
-        <div class="col-md-6"></div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">Gearbox:</div>
-        <div class="col-md-6"></div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">Cityarea:</div>
-        <div class="col-md-6"></div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">Price:</div>
-        <div class="col-md-6"></div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">Phone:</div>
-        <div class="col-md-6"></div>
-      </div>
-    </div>
-
-
-    <form class="form-horizontal" novalidate (ngSubmit)="save2in1(instructor)" #instructorForm="ngForm">
-        <fieldset>
-
-          <div class="form-group" [ngClass]="{'has-error': (firstNameVar.touched || firstNameVar.dirty) && !firstNameVar.valid }">
-            <label class="col-md-2 control-label" for="firstNameId">First Name</label>
-
-            <div class="col-md-8">
-              <input class="form-control" id="firstNameId" type="text" placeholder="First Name (required)"
-                required minlength="3" [(ngModel)]=instructor.instructorName
-                name="firstName" #firstNameVar="ngModel" />
-              <span class="help-block" *ngIf="(firstNameVar.touched || firstNameVar.dirty) && firstNameVar.errors">
-                <span *ngIf="firstNameVar?.errors.required">
-                  Please enter your first name.
-                </span>
-                <span *ngIf="firstNameVar?.errors.minlength">
-                  The first name must be longer than 3 characters.
-                </span>
+        <div class="form-group row" [ngClass]="{'was-validated': instructorNameVar.touched && !instructorNameVar.valid }">
+          <label class="col-md-2 control-label" for="instructorNameId">Instructor Name:</label>
+          <div class="col-md-8">
+            <input class="form-control" id="instructorNameId" type="text" placeholder="Instructor Name (required)" required pattern="...+"
+              [(ngModel)]="instructor.instructorName" name="instructorName" #instructorNameVar="ngModel" />
+            <div class="alert alert-warning " role="alert" *ngIf="instructorNameVar.touched && instructorNameVar.errors">
+              <span *ngIf="instructorNameVar?.errors.required">
+                Please enter instructor name.
+              </span>
+              <span *ngIf="instructorNameVar?.errors.pattern">
+                The name must be longer than 3 characters.
               </span>
             </div>
           </div>
+        </div>
 
-
-
-          <div class="form-group">
-            <div class="">
-              <span>
-                <button class="btn btn-primary" type="submit" [disabled]="!instructorForm.valid">
-                  Save
-                </button>
+        <div class="form-group row" [ngClass]="{'was-validated': carVar.touched && !carVar.valid }">
+          <label class="col-md-2 control-label" for="carId">Instructor Name:</label>
+          <div class="col-md-8">
+            <input class="form-control" id="carId" type="text" placeholder="Instructor Car (required)" required pattern="...+"
+              [(ngModel)]="instructor.car" name="car" #carVar="ngModel" />
+            <div class="alert alert-warning " role="alert" *ngIf="carVar.touched && carVar.errors">
+              <span *ngIf="carVar?.errors.required">
+                Please enter instructor car.
               </span>
-
+              <span *ngIf="carVar?.errors.pattern">
+                The car must be longer than 3 characters.
+              </span>
             </div>
           </div>
-        </fieldset>
-      </form>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-2 control-label" for="gearboxId">Gearbox:</label>
+          <div class="col-md-8">
+            <select class="form-control" id="gearboxId" [(ngModel)]="instructor.gearbox" name="gearbox" #gearboxVar="ngModel" (blur)="validateGearbox(gearboxVar.value)"
+              (change)="validateGearbox(gearboxVar.value)">
+              <!-- <option default value="default">Select a gearbox...</option> -->
+              <option value="Mechanical">Mechanical</option>
+              <option value="Automated">Automated</option>
+            </select>
+            <div class="alert alert-warning " role="alert" *ngIf="hasGearboxError">
+              <span>Please select a gearbox.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="card-footer">
+        <button class="btn btn-default" (click)="onBack()">
+          <i class="fa fa-chevron-left" aria-hidden="true"></i> Cancel
+        </button>
+        <button class="btn btn-primary" type="submit" [disabled]="!instructorForm.valid || !instructorForm.value.gearbox">
+          <i class="fa fa-floppy-o" aria-hidden="true"></i> Save
+        </button>
+        <button class="btn btn-danger" (click)="deleteInstructor(instructor)" [disabled]="!instructor?.key">
+          <i class="fa fa-trash-o" aria-hidden="true"></i> Delete
+        </button>
+      </div>
 
     </div>
 
-    <div>
-      Dirty: {{ instructorForm.dirty }}
-      <br> Touched: {{ instructorForm.touched }}
-      <br> Valid: {{ instructorForm.valid }}
-      <br> Value: {{ instructorForm.value | json }}
-    </div>
+  </fieldset>
+</form>
 
-
-  <div class="card-footer">
-    <button class="btn btn-default" (click)="onBack()">
-      <i class="fa fa-chevron-left" aria-hidden="true"></i> Cancel
-    </button>
-    <button class="btn btn-primary" (click)="updateInstructor()">
-      <i class="fa fa-floppy-o" aria-hidden="true"></i>
-    </button>
-    <button class="btn btn-danger">
-      <i class="fa fa-trash-o" aria-hidden="true"></i>
-    </button>
-  </div>
-
+<div>
+  Dirty: {{ instructorForm.pristine }} --- Dirty: {{ instructorForm.dirty }}
+  <br> Touched: {{ instructorForm.touched }} --- Untouched: {{ instructorForm.untouched }}
+  <br> Valid: {{ instructorForm.valid }} --- Invalid: {{ instructorForm.invalid }}
+  <br> hasGearboxError: {{hasGearboxError}}
+  <br> Value: {{ instructorForm.value | json }}
 </div>

@@ -41,7 +41,7 @@
     <button class="btn btn-default" (click)="onInsList()">
       <i class="fa fa-chevron-left" aria-hidden="true"></i> Back
     </button>
-    <button class="btn btn-primary" (click)="onInsList()">
+    <button class="btn btn-primary" [routerLink]="['/instructors', instructor.key, 'edit']">
         <i class="fa fa-pencil" aria-hidden="true"></i>
     </button>
   </div>
