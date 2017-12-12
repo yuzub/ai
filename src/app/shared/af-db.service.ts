@@ -4,6 +4,7 @@ import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/catch";
 
 import { IInstructor } from "../instructors/instructor";
+import { errorHandler } from "@angular/platform-browser/src/browser";
 
 @Injectable()
 export class AfDbService {

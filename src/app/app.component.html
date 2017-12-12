@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <a class="navbar-brand" [routerLink]="['/']">AI Dnepr</a>
+    <a class="navbar-brand" [routerLink]="['/welcome']">AI Dnepr</a>
 
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
@@ -24,8 +24,11 @@
     </ul>
 
     <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/login']">Login</a>
+      <li class="nav-item" *ngIf="!(authService.user$ | async)?.uid">
+        <a class="nav-link" (click)="authService.login()">Login</a>
+      </li>
+      <li class="nav-item" *ngIf="(authService.user$ | async)?.uid">
+        <a class="nav-link" (click)="authService.logout()">{{(authService.user$ | async)?.displayName}} Logout</a>
       </li>
     </ul>
 

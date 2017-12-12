@@ -18,6 +18,7 @@ import { FeedbackListComponent } from './feedbacks/feedback-list.component';
 import { PageNotFoundComponent } from './shared/page-not-found.component';
 
 import { AfDbService } from './shared/af-db.service';
+import { AuthService } from './auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { AfDbService } from './shared/af-db.service';
     AngularFireAuthModule // imports firebase/auth, only needed for auth features
   ],
   providers: [
-    AfDbService
+    AfDbService, AuthService
   ],
   bootstrap: [AppComponent]
 })
