@@ -36,10 +36,17 @@ export class InstructorEditComponent implements OnInit, OnDestroy {
     }
 
     this.subscriptioN = this.instructor$
-    .subscribe(i => {
-      console.log(i.instructorName);
-      this.instructor = i;
-    });
+      .subscribe(
+      i => {
+        console.log('i-edit - instructor$.subscribe got value: ', i);
+        // console.log(i.instructorName);
+        this.instructor = i;
+      },
+      error => {
+        console.log('i-edit - instructor$.subscribe got error: ', error);
+      },
+      () => console.log('i-edit - instructor$.subscribe - completed')
+    )
 
   }
 
@@ -55,10 +62,10 @@ export class InstructorEditComponent implements OnInit, OnDestroy {
     const save = this.isNewInstructor
       ? this.afDbService.createInstructor(instructor)
       : this.afDbService.updateInstructor(instructor);
-      save.then(_ => {
-        console.log('saveInstructor 2in1 navigate to /instructors');
-        this.router.navigate(['/instructors']);
-      });
+    save.then(_ => {
+      console.log('saveInstructor 2in1 navigate to /instructors');
+      this.router.navigate(['/instructors']);
+    });
   }
 
   deleteInstructor(instructor: IInstructor) {

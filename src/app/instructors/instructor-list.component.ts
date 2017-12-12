@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Observable } from "rxjs/Observable";
+import { Subscription } from "rxjs/Subscription";
 
 import { AfDbService } from "../shared/af-db.service";
 import { IInstructor } from "./instructor";
@@ -8,7 +9,8 @@ import { IInstructor } from "./instructor";
   selector: 'ai-instructors',
   templateUrl: './instructor-list.component.html'
 })
-export class InstructorListComponent implements OnInit {
+export class InstructorListComponent implements OnInit, OnDestroy {
+  subscriptioN: Subscription;
   pageTitle: string = 'Instructor List';
   showPhoto: boolean = false;
   photoWidth: number = 50;
@@ -33,12 +35,22 @@ export class InstructorListComponent implements OnInit {
 
   ngOnInit() {
     this.instructors$ = this.getInstructors();
-    this.instructors$.subscribe(
+    this.subscriptioN = this.instructors$.subscribe(
       instructors => {
+        console.log('instructors$.subscribe got value: ', instructors);
         this.filteredInstructors = this.instructors = instructors;
-        // console.log(this.filteredInstructors);
       },
-      error => this.errorMessage = <any>error);
+      error => {
+        console.log('instructors$.subsribe got error: ', error);
+        this.errorMessage = <any>error;
+      },
+      () => console.log('instructors$.subscribe - completed')
+    )
+  }
+
+  ngOnDestroy() {
+    console.log('in ngOnDestroy');
+    this.subscriptioN.unsubscribe();
   }
 
   getInstructors(): Observable<any[]> {
