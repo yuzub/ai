@@ -1,3 +1,54 @@
+/instructors
+  key
+    instructorName
+    ...
+    rating: number[]
+    user.uid or userKey (who create instructor)
+    isVerifying: boolean (default -> false)
+
+/feedbacks
+  key
+    user.uid or userKey (who create feedback)
+    userName
+    instructorKey
+    instructorName
+    text
+    rating
+
+Instructor's rating can change in moment when user adds new feedback.
+In saveFeedback() after saving feedback  - push new value of instructor in rating array of this instructor?
+
+
+//-----------------------------------------------------------------------------------------------
+instructors          - instructor-list   list('/instructors') query in instructors on isVerifying=true
+                                                                        -> ins-detail for all user
+                                                                        -> ins-edit for admin
+  <rating> component - list('/feedbacks') query in feedbacks on instructorKey and evaluate rating
+
+instructors/:id      - instructor-detail object('/instructors/instructorKey')   -> ins-edit and delete() for user.uid or user isAdmin
+  <instructor-feedback> component -      list('/feedbacks') query in feedbacks on instructorKey
+
+instructors/:id/edit - instructor-edit   object('/instructors/instructorKey') form [ngModel]
+
+add instructor
+instructors/new/edit - instructor-edit   new Instructor() form [ngModel]
+
+//-----------------------------------------------------------------------------------------------
+feedbacks            - feedback-list     list('/feedbacks') see more...   -> feedbacks-detail for all user
+                                                                          -> feedbacks-edit for admin
+
+feedbacks/:id      - feedback-detail object('/feedbacks/feedbackKey')     -> ins-edit and delete() for user.uid or user isAdmin
+
+feedbacks/:id/edit - feedback-edit   object('/feedbacks/feedbackKey') form [ngModel]
+
+
+add feedback
+feedbacks/new/edit   - feedback-edit     new Feedback() form [ngModel]
+  <user-feedbacks> component -           list('/feedbacks') query in feedbacks on user.uid
+
+if user opens links in different pages, when user logout - ...?
+
+
 # Ai
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.4.

@@ -58,6 +58,8 @@ export class AfDbService {
   }
 
   updateInstructor(i: IInstructor) {
+    // after updateInstructor() method in updated instructor is added new property - instructor.key
+    // before update() delete i.key property in i object
     return this.instructorsRef.update(i.key, i)
       .then(_ => console.log(`update instructor ${i.instructorName} - success`))
       .catch(error => console.log(error));

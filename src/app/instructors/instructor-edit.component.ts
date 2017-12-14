@@ -14,7 +14,7 @@ export class InstructorEditComponent implements OnInit, OnDestroy {
   subscriptioN: Subscription;
   isNewInstructor: boolean;
   pageTitle: string = 'Instructor Edit';
-  instructor: IInstructor = new Instructor();
+  // instructor: IInstructor = new Instructor();
   instructor$: Observable<IInstructor>;
 
   hasGearboxError: boolean = false;
@@ -26,6 +26,7 @@ export class InstructorEditComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     let id: string = this.activatedRoute.snapshot.paramMap.get('id');
+    // let id: string = this.activatedRoute.snapshot.params['id'];
     this.pageTitle += `: ${id}`;
     this.isNewInstructor = id === 'new';
 
@@ -35,27 +36,27 @@ export class InstructorEditComponent implements OnInit, OnDestroy {
       this.instructor$ = Observable.of({}) as Observable<IInstructor>;
     }
 
-    this.subscriptioN = this.instructor$
-      .subscribe(
-      i => {
-        console.log('i-edit - instructor$.subscribe got value: ', i);
-        // console.log(i.instructorName);
-        this.instructor = i;
-      },
-      error => {
-        console.log('i-edit - instructor$.subscribe got error: ', error);
-      },
-      () => console.log('i-edit - instructor$.subscribe - completed')
-    )
+    // this.subscriptioN = this.instructor$
+    //   .subscribe(
+    //   i => {
+    //     console.log('i-edit - instructor$.subscribe got value: ', i);
+    //     // console.log(i.instructorName);
+    //     this.instructor = i;
+    //   },
+    //   error => {
+    //     console.log('i-edit - instructor$.subscribe got error: ', error);
+    //   },
+    //   () => console.log('i-edit - instructor$.subscribe - completed')
+    // );
 
   }
 
   ngOnDestroy() {
-    this.subscriptioN.unsubscribe();
+    // this.subscriptioN.unsubscribe();
   }
 
-  getInstructor(id: string): Observable<IInstructor> {
-    return this.afDbService.getInstructor(id);
+  getInstructor(key: string): Observable<IInstructor> {
+    return this.afDbService.getInstructor(key);
   }
 
   saveInstructor2in1(instructor: IInstructor) {
@@ -86,7 +87,7 @@ export class InstructorEditComponent implements OnInit, OnDestroy {
   }
 
   validateGearbox(value) {
-    console.log(`gearbox: ${this.instructor.gearbox} , value: ${value}`);
+    console.log(`gearbox: this.instructor.gearbox , value: ${value}`);
     this.hasGearboxError = !value;
   }
 }
