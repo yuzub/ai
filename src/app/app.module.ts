@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { InstructorModule } from './instructors/instructor.module';
+import { FeedbackModule } from './feedbacks/feedback.module';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -13,8 +14,6 @@ import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './home/welcome.component';
-import { FeedbackListComponent } from './feedbacks/feedback-list.component';
-
 import { PageNotFoundComponent } from './shared/page-not-found.component';
 
 import { AfDbService } from './shared/af-db.service';
@@ -22,13 +21,13 @@ import { AuthService } from './auth/auth.service';
 
 @NgModule({
   declarations: [
-    AppComponent, WelcomeComponent,
-    FeedbackListComponent, PageNotFoundComponent
+    AppComponent, WelcomeComponent, PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     AuthModule,
     InstructorModule,
+    FeedbackModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything
     AngularFireDatabaseModule, // imports firebase/firedatabase, only needed for database features

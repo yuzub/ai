@@ -4,7 +4,7 @@ import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/catch";
 
 import { IInstructor } from "../instructors/instructor";
-import { errorHandler } from "@angular/platform-browser/src/browser";
+import { IFeedback } from "../feedbacks/feedback";
 
 @Injectable()
 export class AfDbService {
@@ -24,31 +24,38 @@ export class AfDbService {
     //   .map(action => ({ key: action.key, ...action.payload.val() }));
   }
 
-  // save(newName: string) {
-  //   this.objectRef.set({ name: 'newName' })
-  //     .then(_ => console.log('success'))
-  //     .catch(error => console.log(error));
-  // }
-  // update(newSize: string) {
-  //   this.objectRef.update({ size: 'newSize' })
-  //     .then(_ => console.log('success'))
-  //     .catch(error => console.log(error));
-  // }
-  // delete() {
-  //   this.objectRef.remove()
-  //     .then(_ => console.log('success'))
-  //     .catch(error => console.log(error));
-  // }
+  /*   save(newName: string) {
+      this.objectRef.set({ name: 'newName' })
+        .then(_ => console.log('success'))
+        .catch(error => console.log(error));
+    }
+    update(newSize: string) {
+      this.objectRef.update({ size: 'newSize' })
+        .then(_ => console.log('success'))
+        .catch(error => console.log(error));
+    }
+    delete() {
+      this.objectRef.remove()
+        .then(_ => console.log('success'))
+        .catch(error => console.log(error));
+    }
 
-  // getInstructor(id: string): Observable<any> {
-  //   return this.afDb.object('instructors/' + id).valueChanges();
-  // }
+    getInstructor(id: string): Observable<any> {
+      return this.afDb.object('instructors/' + id).valueChanges();
+    } */
 
-// ------------------ Instructors -----------------------------
+  // ------------------ Instructors -----------------------------
 
   getInstructor(key: string): Observable<IInstructor> {
     return this.afDb.object<IInstructor>(`instructors/${key}`).snapshotChanges()
       .map(action => ({ key: action.key, ...action.payload.val() }))
+      .catch(this.errorHandler);
+  }
+
+  getInstructors(): Observable<IInstructor[]> {
+    return this.instructorsRef.snapshotChanges().map(actions => {
+      return actions.map(action => ({ key: action.key, ...action.payload.val() }));
+    })
       .catch(this.errorHandler);
   }
 
@@ -71,21 +78,38 @@ export class AfDbService {
       .catch(error => console.log(error));
   }
 
-  getInstructors(): Observable<IInstructor[]> {
-    return this.instructorsRef.snapshotChanges().map(actions => {
+  // ------------------ Feedbacks -----------------------------
+  getFeedback(key: string): Observable<IFeedback> {
+    return this.afDb.object<IFeedback>(`feedbacks/${key}`).snapshotChanges()
+      .map(action => ({ key: action.key, ...action.payload.val() }))
+      .catch(this.errorHandler);
+  }
+
+  getFeedbacks(): Observable<IFeedback[]> {
+    return this.feedbacksRef.snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, ...action.payload.val() }));
     })
       .catch(this.errorHandler);
   }
 
-// ------------------ Feedbacks -----------------------------
-
-  getFeedbacks() { }
-
-  createFeedback(f: any) {
+  createFeedback(f: IFeedback) {
     console.info(f);
     return this.feedbacksRef.push(f)
-      .then(_ => console.log(`create instructor ${f.firstName} - success`));
+      .then(_ => console.log(`create feedback for ${f.instructorName} - success`));
+  }
+
+  updateFeedback(f: IFeedback) {
+    // after updateFeedback() method in updated instructor is added new property - instructor.key
+    // before update() delete i.key property in i object
+    return this.feedbacksRef.update(f.key, f)
+      .then(_ => console.log(`update feedback for ${f.instructorName} - success`))
+      .catch(error => console.log(error));
+  }
+
+  deleteFeedback(f: IFeedback) {
+    return this.instructorsRef.remove(f.key)
+      .then(_ => console.log(`remove feedback for ${f.instructorName} - success`))
+      .catch(error => console.log(error));
   }
 
   // handleError(error: any) - rename???

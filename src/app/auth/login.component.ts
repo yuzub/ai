@@ -26,6 +26,6 @@ export class LoginComponent {
     // console.log(form.value);
     // validate form
 
-    this.afDbService.createFeedback(this.model);
+    // this.afDbService.createFeedback(this.model);
   }
 }

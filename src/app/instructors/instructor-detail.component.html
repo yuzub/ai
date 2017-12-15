@@ -1,4 +1,4 @@
-<div class="card mb-3" *ngIf="instructor">
+<div class="card mb-3" *ngIf="instructor$ | async as instructor">
 <!-- <div class="card mb-3"> -->
 
   <div class="card-header text-white bg-primary">{{pageTitle + ': ' + instructor?.instructorName}}</div>
