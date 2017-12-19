@@ -11,8 +11,15 @@ import { InstructorCreateComponent } from "./instructor-create.component";
 
 import { InstructorGuardService } from "./instructor-guard.service";
 
+import { DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+
 @NgModule({
   imports: [
+    ButtonsModule.forRoot(),
+    TimepickerModule.forRoot(),
+    DatepickerModule.forRoot(),
     SharedModule,
     InstructorRoutingModule
   ],

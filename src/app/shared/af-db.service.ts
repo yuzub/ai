@@ -85,7 +85,7 @@ export class AfDbService {
       .catch(this.errorHandler);
   }
 
-  getFeedbacks(): Observable<IFeedback[]> {
+  getFeedbacks(iKey?: string): Observable<IFeedback[]> {
     return this.feedbacksRef.snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, ...action.payload.val() }));
     })

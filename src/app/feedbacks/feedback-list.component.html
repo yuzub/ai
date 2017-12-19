@@ -1,12 +1,46 @@
 <div class="card mb-3">
 
-    <div class="card-header text-white bg-primary">{{pageTitle}}</div>
+  <div class="card-header text-white bg-primary">{{pageTitle}}</div>
 
-    <div class="card-body">
-      <h4 class="card-title">Primary card title</h4>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  <div class="card-body">
+<!--     <h4 class="card-title">Primary card title</h4>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+ -->
+    <div class="row">
+        <div class="col-md-2">Filter feedbacks by:</div>
+        <div class="col-md-4">
+            <select name="" id="" (change)="getFeedbacks($event.value)">
+                <option value="default">All instructors</option>
+                <option *ngFor="let instructor of instructors$ | async" [value]="instructor.key">{{instructor.instructorName}}</option>
+              </select>
+        </div>
+      </div>
 
-
-    </div>
+      <div class="table-responsive">
+        <table class="table table-striped" *ngIf="instructors$ | async">
+          <thead>
+            <tr>
+              <th scope="col">(User.uid) at (feedback.timestamp)</th>
+              <th scope="col"> Instructor Key Instructor Name</th>
+              <th scope="col">Feedback</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let feedback of feedbacks$ | async">
+              <td>(feedback.userUid) at (feedback.timestamp)</td>
+              <td>{{feedback.instructorKey}} (feedback.instructorName)</td>
+              <td>{{feedback.text}}</td>
+              <td>
+                <a [routerLink]="['/feedbacks', feedback.key, 'edit']">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
   </div>
+
+</div>

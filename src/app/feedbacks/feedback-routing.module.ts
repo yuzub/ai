@@ -10,7 +10,6 @@ import { FeedbackEditComponent } from "./feedback-edit.component";
 
 const routes: Routes = [
   { path: 'feedbacks', component: FeedbackListComponent },
-  // { path: 'feedbacks/new', component: FeedbackCreateComponent },
   // { path: 'feedbacks/:id', canActivate: [FeedbackGuardService], component: FeedbackDetailComponent },
   { path: 'feedbacks/:id/edit', component: FeedbackEditComponent },
 ]

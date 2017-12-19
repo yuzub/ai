@@ -1,3 +1,29 @@
+<div class="card mb-3">
+  <form action="">
+
+    <div class="form-group">
+      <button type="button" class="btn btn-primary" [class.btn-primary]="onOffSwitch == 'On'" name="omOffSwitch" [(ngModel)]="onOffSwitch" btnCheckbox btnCheckboxTrue="On" btnCheckboxFalse="Off">
+        {{onOffSwitch}}
+      </button>
+      <pre class="card card-block card-header">{{onOffSwitch}}</pre>
+    </div>
+    <div class="form-group">
+      <timepicker name="startTime" [(ngModel)]="startTime" [minuteStep]="15"></timepicker>
+      <pre class="alert alert-info">Time is: {{startTime}}</pre>
+    </div>
+    <!--     <div class="form-group" style="display: inline-block;">
+      <datepicker name="startDate" [(ngModel)]="startDate"
+      [showWeeks]="false"
+      [minDate]="minDate">
+      </datepicker>
+    </div> -->
+  </form>
+  <div>
+    {{startDate | date: 'fullDate'}}
+  </div>
+</div>
+
+
 <div class="card mb-3" *ngIf="instructor$ | async as instructor">
   <div class="card-header text-white bg-primary">{{pageTitle + ': ' + instructor?.instructorName}}</div>
 

@@ -11,6 +11,13 @@ import { NgForm } from "@angular/forms";
   templateUrl: './instructor-edit.component.html'
 })
 export class InstructorEditComponent implements OnInit, OnDestroy {
+  startDate: Date;
+  // startDate: Date = new Date();
+  // startDate: Date = new Date('Jan 1 2017');
+  minDate: Date = new Date('Oct 12 2016');
+  startTime: Date = new Date('Oct 12 2016 3:00 PM');
+  onOffSwitch: any = 'Off';
+
   subscriptioN: Subscription;
   isNewInstructor: boolean;
   pageTitle: string = 'Instructor Edit';

@@ -2,12 +2,12 @@
   <div class="card-header text-white bg-primary">{{pageTitle}}</div>
 
   <div class="card-body">
-    <h4 class="card-title">user.uid about {{feedback.instructorKey}}</h4>
+    <h4 class="card-title">user.uid about {{feedback.instructorKey}} {{feedback.text}}</h4>
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
     <div>
-      <input type="text" [ngModel]="feedback.feedbackText">
+      <input type="text" [(ngModel)]="feedback.text">
     </div>
-    <select name="" id="" [ngModel]="feedback.instructorKey">
+    <select name="" id="" [(ngModel)]="feedback.instructorKey">
       <option *ngFor="let instructor of instructors$ | async" [value]="instructor.key">{{instructor.instructorName}}</option>
     </select>
 

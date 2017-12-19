@@ -4,6 +4,6 @@ export interface IFeedback {
   instructorKey: string;   // to query for feedbacks related to a certain instructor
   instructorName: string;
   rating: number;
-  feedbackText: string;
+  text: string;
   key?: string
 }

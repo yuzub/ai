@@ -7,7 +7,6 @@ import { FeedbackRoutingModule } from "./feedback-routing.module";
 import { FeedbackListComponent } from "./feedback-list.component";
 // import { FeedbackDetailComponent } from "./feedback-detail.component";
 import { FeedbackEditComponent } from "./feedback-edit.component";
-// import { FeedbackCreateComponent } from "./feedback-create.component";
 
 // import { FeedbackGuardService } from "./feedback-guard.service";
 
@@ -20,7 +19,6 @@ import { FeedbackEditComponent } from "./feedback-edit.component";
     FeedbackListComponent,
     // FeedbackDetailComponent,
     FeedbackEditComponent,
-    // FeedbackCreateComponent
   ],
   providers: [
     // FeedbackGuardService
