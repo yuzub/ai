@@ -3,43 +3,65 @@
   <div class="card-header text-white bg-primary">{{pageTitle}}</div>
 
   <div class="card-body">
-<!--     <h4 class="card-title">Primary card title</h4>
+    <!--     <h4 class="card-title">Primary card title</h4>
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
  -->
     <div class="row">
-        <div class="col-md-2">Filter feedbacks by:</div>
-        <div class="col-md-4">
-            <select name="" id="" (change)="getFeedbacks($event.value)">
-                <option value="default">All instructors</option>
-                <option *ngFor="let instructor of instructors$ | async" [value]="instructor.key">{{instructor.instructorName}}</option>
-              </select>
-        </div>
+      <div class="col-md-2">Filter feedbacks by:</div>
+      <div class="col-md-4">
+        <select name="" id="" (change)="filterFeedbacksBy($event.target.value)">
+          <option [value]="null">All instructors</option>
+          <option *ngFor="let instructor of instructors$ | async" [value]="instructor.key">{{instructor.instructorName}} ({{instructor.key}})</option>
+        </select>
       </div>
+    </div>
 
-      <div class="table-responsive">
-        <table class="table table-striped" *ngIf="instructors$ | async">
-          <thead>
-            <tr>
-              <th scope="col">(User.uid) at (feedback.timestamp)</th>
-              <th scope="col"> Instructor Key Instructor Name</th>
-              <th scope="col">Feedback</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let feedback of feedbacks$ | async">
-              <td>(feedback.userUid) at (feedback.timestamp)</td>
-              <td>{{feedback.instructorKey}} (feedback.instructorName)</td>
-              <td>{{feedback.text}}</td>
-              <td>
-                <a [routerLink]="['/feedbacks', feedback.key, 'edit']">
-                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="table-responsive">
+      <table class="table table-striped" *ngIf="instructors$ | async">
+        <thead>
+          <tr>
+            <th>feedback.payload.key</th>
+            <th scope="col">User.uid at feedback.timestamp</th>
+            <th scope="col">Instructor Key Instructor Name</th>
+            <th scope="col">Feedback</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let feedback of feedbacks$ | async">
+            <td>{{feedback.key}}</td>
+            <td>(feedback.userUid) at (feedback.timestamp)</td>
+            <td>{{feedback.instructorKey}} (feedback.instructorName)</td>
+            <td>{{feedback.text}}</td>
+            <td>
+              <a [routerLink]="['/feedbacks', feedback.key, 'edit']">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Firebase widgets!</h3>
+    <div *ngIf="items$ | async; let items; else loading">
+      <ul>
+        <li *ngFor="let item of items">
+          {{ item.payload.val().text }}
+          <code>{{ item.payload.key }}</code>
+        </li>
+      </ul>
+      <div *ngIf="items.length === 0">No results, try clearing filters</div>
+    </div>
+    <ng-template #loading>Loading&hellip;</ng-template>
+    <div>
+      <h4>Filter by instructorKey</h4>
+      <button (click)="filterFeedbacksBy('0')">0</button>
+      <button (click)="filterFeedbacksBy('1')">1</button>
+      <button (click)="filterFeedbacksBy('2')">2</button>
+      <button (click)="filterFeedbacksBy('3')">3</button>
+      <button (click)="filterFeedbacksBy(null)"><em>clear filter > null</em></button>
+    </div>
 
   </div>
 

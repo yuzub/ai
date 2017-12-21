@@ -1,6 +1,10 @@
 import { Injectable } from "@angular/core";
-import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList, AngularFireObject, AngularFireAction } from 'angularfire2/database';
+import * as firebase from 'firebase/app';
+
 import { Observable } from "rxjs/Observable";
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import 'rxjs/add/operator/switchMap';
 import "rxjs/add/operator/catch";
 
 import { IInstructor } from "../instructors/instructor";
@@ -11,13 +15,25 @@ export class AfDbService {
   instructorsRef: AngularFireList<IInstructor>;
   feedbacksRef: AngularFireList<any>;
 
-  objectRef: AngularFireObject<any>;
-  object: Observable<any>;
+  iKey$: BehaviorSubject<string | null>;
+  items$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
+
+  // objectRef: AngularFireObject<any>;
+  // object: Observable<any>;
 
   constructor(private afDb: AngularFireDatabase) {
     this.instructorsRef = this.afDb.list<IInstructor>('instructors');
 
-    this.feedbacksRef = this.afDb.list<any>('feedbacks');
+    this.feedbacksRef = this.afDb.list<IFeedback>('feedbacks');
+
+    this.iKey$ = new BehaviorSubject(null);
+    this.items$ = this.iKey$.switchMap(iKey =>
+      afDb.list('/feedbacks', ref => {
+        console.log(`${iKey} > ${!!iKey}`);
+        return iKey ? ref.orderByChild('instructorKey').equalTo(iKey) : ref
+      })
+        .snapshotChanges()
+    );
 
     // this.objectRef = this.afDb.object<any>('object');
     // this.object = this.objectRef.snapshotChanges()
@@ -85,11 +101,15 @@ export class AfDbService {
       .catch(this.errorHandler);
   }
 
-  getFeedbacks(iKey?: string): Observable<IFeedback[]> {
+  getFeedbacks(): Observable<IFeedback[]> {
     return this.feedbacksRef.snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, ...action.payload.val() }));
     })
       .catch(this.errorHandler);
+  }
+
+  filterFeedbacksBy(iKey: string | null) {
+    this.iKey$.next(iKey);
   }
 
   createFeedback(f: IFeedback) {

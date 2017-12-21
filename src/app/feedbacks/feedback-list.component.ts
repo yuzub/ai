@@ -9,17 +9,24 @@ import { IFeedback } from './feedback';
   templateUrl: './feedback-list.component.html'
 })
 export class FeedbackListComponent implements OnInit {
+  items$: any;
   feedbacks$: Observable<IFeedback[]>;
   pageTitle: string = 'Feedback List';
   instructors$: Observable<IInstructor[]>;
-  constructor(private afDb: AfDbService) {}
+  constructor(private afDb: AfDbService) { }
 
   ngOnInit() {
-    this.feedbacks$ = this.getFeedbacks();
+    this.items$ = this.afDb.items$;
+    this.feedbacks$ = <Observable<IFeedback[]>>this.items$;
+    // this.feedbacks$ = this.getFeedbacks();
     this.instructors$ = this.afDb.getInstructors();
   }
 
-  getFeedbacks(instructorKey?: string) {
-    return this.afDb.getFeedbacks(instructorKey);
+  getFeedbacks() {
+    return this.afDb.getFeedbacks();
+  }
+
+  filterFeedbacksBy(iKey: string|null): void {
+    this.afDb.filterFeedbacksBy( (iKey === 'null' ? null : iKey) );
   }
 }
