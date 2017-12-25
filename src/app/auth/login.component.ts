@@ -21,6 +21,10 @@ export class LoginComponent {
     }
   }
 
+  login(formValues) {
+    console.log(formValues);
+  }
+
   submitForm(form: NgForm) {
     // console.log(this.model);
     // console.log(form.value);

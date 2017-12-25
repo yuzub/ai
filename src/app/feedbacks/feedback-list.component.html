@@ -2,7 +2,7 @@
 
   <div class="card-header text-white bg-primary">{{pageTitle}}</div>
 
-  <div class="card-body">
+  <div class="card-body" *ngIf="feedbacks$ | async; let feedbacks; else loading">
     <!--     <h4 class="card-title">Primary card title</h4>
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
  -->
@@ -28,11 +28,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let feedback of feedbacks$ | async">
-            <td>{{feedback.key}}</td>
-            <td>(feedback.userUid) at (feedback.timestamp)</td>
-            <td>{{feedback.instructorKey}} (feedback.instructorName)</td>
-            <td>{{feedback.text}}</td>
+          <tr *ngFor="let feedback of feedbacks">
+            <td>{{feedback.payload.key}}</td>
+            <td>(feedback.payload.val().userUid) at (feedback.payload.val().timestamp)</td>
+            <td>{{feedback.payload.val().instructorKey}} (feedback.payload.val().instructorName)</td>
+            <td>{{feedback.payload.val().text}}</td>
             <td>
               <a [routerLink]="['/feedbacks', feedback.key, 'edit']">
                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -43,26 +43,8 @@
       </table>
     </div>
 
-    <h3>Firebase widgets!</h3>
-    <div *ngIf="items$ | async; let items; else loading">
-      <ul>
-        <li *ngFor="let item of items">
-          {{ item.payload.val().text }}
-          <code>{{ item.payload.key }}</code>
-        </li>
-      </ul>
-      <div *ngIf="items.length === 0">No results, try clearing filters</div>
-    </div>
-    <ng-template #loading>Loading&hellip;</ng-template>
-    <div>
-      <h4>Filter by instructorKey</h4>
-      <button (click)="filterFeedbacksBy('0')">0</button>
-      <button (click)="filterFeedbacksBy('1')">1</button>
-      <button (click)="filterFeedbacksBy('2')">2</button>
-      <button (click)="filterFeedbacksBy('3')">3</button>
-      <button (click)="filterFeedbacksBy(null)"><em>clear filter > null</em></button>
-    </div>
-
   </div>
+
+  <ng-template #loading>Loading&hellip;</ng-template>
 
 </div>

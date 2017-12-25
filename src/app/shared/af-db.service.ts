@@ -16,7 +16,7 @@ export class AfDbService {
   feedbacksRef: AngularFireList<any>;
 
   iKey$: BehaviorSubject<string | null>;
-  items$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
+  feedbacks$: Observable<AngularFireAction<firebase.database.DataSnapshot>[]>;
 
   // objectRef: AngularFireObject<any>;
   // object: Observable<any>;
@@ -27,11 +27,8 @@ export class AfDbService {
     this.feedbacksRef = this.afDb.list<IFeedback>('feedbacks');
 
     this.iKey$ = new BehaviorSubject(null);
-    this.items$ = this.iKey$.switchMap(iKey =>
-      afDb.list('/feedbacks', ref => {
-        console.log(`${iKey} > ${!!iKey}`);
-        return iKey ? ref.orderByChild('instructorKey').equalTo(iKey) : ref
-      })
+    this.feedbacks$ = this.iKey$.switchMap(iKey =>
+      afDb.list<IFeedback>('/feedbacks', ref => iKey ? ref.orderByChild('instructorKey').equalTo(iKey) : ref)
         .snapshotChanges()
     );
 
@@ -101,14 +98,11 @@ export class AfDbService {
       .catch(this.errorHandler);
   }
 
-  getFeedbacks(): Observable<IFeedback[]> {
-    return this.feedbacksRef.snapshotChanges().map(actions => {
-      return actions.map(action => ({ key: action.key, ...action.payload.val() }));
-    })
-      .catch(this.errorHandler);
+  getFeedbacks(): Observable<AngularFireAction<firebase.database.DataSnapshot>[]> {
+    return this.feedbacks$;
   }
 
-  filterFeedbacksBy(iKey: string | null) {
+  filterFeedbacksBy(iKey: string | null): void {
     this.iKey$.next(iKey);
   }
 

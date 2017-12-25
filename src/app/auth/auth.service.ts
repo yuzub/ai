@@ -11,6 +11,18 @@ export class AuthService {
     this.user$ = this.afAuth.authState;
   }
 
+
+  currentUser: any;
+  loginUser(userName: string, password: string): void {
+    this.currentUser = {
+      userName: userName,
+      password: password
+    }
+  }
+  isAuthenticated(): boolean {
+    return !!this.currentUser;
+  }
+
   login() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then(user => {
