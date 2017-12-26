@@ -9,10 +9,8 @@ import { InstructorDetailComponent } from './instructors/instructor-detail.compo
 import { InstructorGuardService } from './instructors/instructor-guard.service';
 
 import { FeedbackListComponent } from './feedbacks/feedback-list.component';
-import { LoginComponent } from './auth/login.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
   { path: 'feedbacks', component: FeedbackListComponent },
   { path: 'welcome', component: WelcomeComponent },
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },

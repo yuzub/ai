@@ -1,35 +1,54 @@
 import { Component } from "@angular/core";
-import {NgForm} from "@angular/forms";
-import { Employee } from "./employee";
-import { AfDbService } from "../shared/af-db.service";
+import { NgForm } from "@angular/forms";
+import { Router } from "@angular/router";
+import { AuthService } from "./auth.service";
 
 @Component({
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
-  languages: string[] = ['English', 'Russian', 'Other'];
-  // model = new Employee('John', 'Papa', true, 'w2', 'English');
-  model = new Employee('', '', false, '', 'English');
+  pageTitle: string = 'Sign in';
 
-  constructor(private afDbService: AfDbService) {}
-
-  firstNameToUpperCase(value: string) {
-    if (value.length > 0) {
-      this.model.firstName = value.charAt(0).toUpperCase() + value.slice(1);
-    } else {
-      this.model.firstName = value;
-    }
-  }
+  constructor(
+    private auth: AuthService,
+    private router: Router
+  ) { }
 
   login(formValues) {
     console.log(formValues);
   }
 
-  submitForm(form: NgForm) {
-    // console.log(this.model);
-    // console.log(form.value);
-    // validate form
-
-    // this.afDbService.createFeedback(this.model);
+  signInAnonymously(): void {
+    this.auth.signInAnonymously()
+      .then(() => this.postSignIn());
   }
+
+  createOrSignInWithEmailAndPassword() {
+    console.log('signInWithEmailPass() is not implemented yet');
+  }
+
+  signInWithFacebook(): void {
+    this.auth.signInWithFacebook()
+      .then(() => this.postSignIn());
+  }
+
+  signInWithGithub(): void {
+    this.auth.signInWithGithub()
+      .then(() => this.postSignIn());
+  }
+
+  signInWithGoogle(): void {
+    this.auth.signInWithGoogle()
+      .then(() => this.postSignIn());
+  }
+
+  signInWithTwitter(): void {
+    this.auth.signInWithTwitter()
+      .then(() => this.postSignIn());
+  }
+
+  private postSignIn(): void {
+    this.router.navigate(['/instructors']);
+  }
+
 }

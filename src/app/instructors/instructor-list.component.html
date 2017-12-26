@@ -33,8 +33,8 @@
         <tbody>
           <tr *ngFor="let instructor of filteredInstructors">
             <td>
-              <img *ngIf="showPhoto" [src]="instructor.photoUrl" [title]="instructor.instructorName | uppercase" [style.width.px]="photoWidth"
-                [style.margin.px]="photoMargin">
+              <img *ngIf="showPhoto" [src]="instructor.photoUrl" [title]="instructor.instructorName | uppercase"
+                 class="img-fluid mx-auto">
             </td>
             <td>
               <a [routerLink]="['/instructors', instructor.key]">{{instructor.instructorName}}</a>

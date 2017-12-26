@@ -2,16 +2,13 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 import { FeedbackListComponent } from "./feedback-list.component";
-// import { FeedbackDetailComponent } from "./feedback-detail.component";
 import { FeedbackEditComponent } from "./feedback-edit.component";
-// import { FeedbackCreateComponent } from "./feedback-create.component";
+import { RequireAuthGuard } from "../auth/guards/require-auth.guard";
 
-// import { FeedbackGuardService } from "./feedback-guard.service";
 
 const routes: Routes = [
-  { path: 'feedbacks', component: FeedbackListComponent },
-  // { path: 'feedbacks/:id', canActivate: [FeedbackGuardService], component: FeedbackDetailComponent },
-  { path: 'feedbacks/:id/edit', component: FeedbackEditComponent },
+  { path: 'feedbacks', canActivate: [RequireAuthGuard], component: FeedbackListComponent },
+  { path: 'feedbacks/:id/edit', canActivate: [RequireAuthGuard], component: FeedbackEditComponent },
 ]
 
 @NgModule({

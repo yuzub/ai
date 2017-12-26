@@ -18,7 +18,7 @@ import { PageNotFoundComponent } from './shared/page-not-found.component';
 
 import { AfDbService } from './shared/af-db.service';
 import { AuthService } from './auth/auth.service';
-
+// import { RequireAuthGuard } from './auth/guards/require-auth.guard';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,9 @@ import { AuthService } from './auth/auth.service';
     AngularFireAuthModule // imports firebase/auth, only needed for auth features
   ],
   providers: [
-    AfDbService, AuthService
+    AfDbService,
+    AuthService,
+    // RequireAuthGuard
   ],
   bootstrap: [AppComponent]
 })

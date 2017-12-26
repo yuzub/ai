@@ -1,4 +1,26 @@
-<div class="container">
+<div class="row">
+  <div class="col"></div>
+  <div class="col-md-8">
+
+    <div class="card mb-3">
+      <div class="card-header text-white bg-primary text-center">{{pageTitle}}</div>
+      <div class="card-body">
+        <!-- <h4 class="card-title">Please, sign in to see info about instructors and feedbacks</h4> -->
+        <p class="card-text">Please, sign in to see info about instructors and feedbacks.</p>
+        <button class="btn btn-outline-success btn-lg btn-block" (click)="signInAnonymously()">Anonymously</button>
+        <button class="btn btn-outline-success btn-lg btn-block" (click)="createOrSignInWithEmailAndPassword()">Auth with Email and Password</button>
+        <button class="btn btn-outline-success btn-lg btn-block" (click)="signInWithGithub()" disabled>GitHub</button>
+        <button class="btn btn-outline-success btn-lg btn-block" (click)="signInWithGoogle()">Google</button>
+        <button class="btn btn-outline-success btn-lg btn-block" (click)="signInWithTwitter()">Twitter</button>
+        <button class="btn btn-outline-success btn-lg btn-block" (click)="signInWithFacebook()">Facebook</button>
+      </div>
+    </div>
+
+  </div>
+  <div class="col"></div>
+</div>
+
+<!-- <div class="container">
   <h3>Login</h3>
   <div class="row">
     <div class="col-md-4">
@@ -17,69 +39,4 @@
     </div>
   </div>
 </div>
-
-<div class="container">
-  <h3>Employee Form</h3>
-  <form #employeeForm="ngForm" (submit)="submitForm(employeeForm)" novalidate>
-    <div class="form-group">
-      <label for="firstNameId">First Name</label>
-      <!-- <input class="form-control" type="text" name="firstName" id="firstNameId"
-        [ngModel]="model.firstNane" (ngModelChange)="firstNameToUpperCase($event)" required placeholder="First Name"> -->
-      <input class="form-control" #firstNameVar="ngModel" type="text" name="firstName" id="firstNameId" [(ngModel)]="model.firstName"
-        required placeholder="First Name">
-      <div *ngIf="firstNameVar.invalid && firstNameVar.touched" style="background-color: #ffbbbb; color: #ff5555;">
-        First Name is required.
-        <!-- and must be at least 3 character. -->
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="lastNameId">Last Name</label>
-      <input class="form-control" #lastNameVar="ngModel" type="text" name="lastName" id="lastNameId" [(ngModel)]="model.lastName"
-        required placeholder="Last Name">
-      <div *ngIf="lastNameVar.invalid && lastNameVar.touched" style="background-color: #ffbbbb; color: #ff5555;">
-        Last Name is required.
-        <!-- and must be at least 3 character. -->
-      </div>
-    </div>
-
-    <div class="form-check">
-      <label class="form-check-label">
-        <input class="form-check-input" type="checkbox" name="is-full-time" [(ngModel)]="model.isFullTime"> Full Time Employee
-      </label>
-    </div>
-
-    <label>Payment Time</label>
-    <div class="form-check">
-      <label class="form-check-label">
-        <input class="form-check-input" type="radio" name="paymentType" [(ngModel)]="model.paymentType" id="exampleRadios1" value="w2"
-          checked> W2
-      </label>
-    </div>
-    <div class="form-check">
-      <label class="form-check-label">
-        <input class="form-check-input" type="radio" name="paymentType" [(ngModel)]="model.paymentType" id="exampleRadios2" value="1099"> 1099
-      </label>
-    </div>
-
-    <div class="form-group">
-      <label for="languagesId">Example select</label>
-      <select class="form-control" name="primaryLanguage" [(ngModel)]="model.primaryLanguage" id="languagesId">
-        <option *ngFor="let lang of languages">{{lang}}</option>
-      </select>
-    </div>
-
-    <!--     <div class="form-group">
-      <label for="dateId">Date Hired</label>
-      <input class="form-control" type="date" name="date" id="dateId" ngModel required>
-    </div>
-
-    <div class="form-group">
-        <label for="colorId">Color</label>
-        <input class="form-control" type="color" name="color" id="colorId" ngModel required>
-      </div> -->
-
-    <button type="submit" class="btn btn-primary" [disabled]="employeeForm.invalid">Ok</button>
-  </form>
-  Model: {{model | json}}
-  <br> Anguar: {{employeeForm.value | json}}
-</div>
+ -->
