@@ -1,8 +1,8 @@
-<div class="card mb-3">
+<!-- <div class="card mb-3">
   <form action="">
-
     <div class="form-group">
-      <button type="button" class="btn btn-primary" [class.btn-primary]="onOffSwitch == 'On'" name="omOffSwitch" [(ngModel)]="onOffSwitch" btnCheckbox btnCheckboxTrue="On" btnCheckboxFalse="Off">
+      <button type="button" class="btn btn-primary" [class.btn-primary]="onOffSwitch == 'On'" name="omOffSwitch" [(ngModel)]="onOffSwitch"
+        btnCheckbox btnCheckboxTrue="On" btnCheckboxFalse="Off">
         {{onOffSwitch}}
       </button>
       <pre class="card card-block card-header">{{onOffSwitch}}</pre>
@@ -11,45 +11,41 @@
       <timepicker name="startTime" [(ngModel)]="startTime" [minuteStep]="15"></timepicker>
       <pre class="alert alert-info">Time is: {{startTime}}</pre>
     </div>
-    <!--     <div class="form-group" style="display: inline-block;">
-      <datepicker name="startDate" [(ngModel)]="startDate"
-      [showWeeks]="false"
-      [minDate]="minDate">
+    <div class="form-group" style="display: inline-block;">
+      <datepicker name="startDate" [(ngModel)]="startDate" [showWeeks]="false" [minDate]="minDate">
       </datepicker>
-    </div> -->
+    </div>
   </form>
   <div>
     {{startDate | date: 'fullDate'}}
   </div>
-</div>
-
+</div> -->
 
 <div class="card mb-3" *ngIf="instructor$ | async as instructor">
-  <div class="card-header text-white bg-primary">{{pageTitle + ': ' + instructor?.instructorName}}</div>
+  <div class="card-header text-white bg-primary">{{pageTitle}}</div>
 
   <div class="card-body">
     <form class="" novalidate (ngSubmit)="saveInstructor2in1(instructor)" #instructorForm="ngForm">
       <!-- <form class="" novalidate (ngSubmit)="save(instructorForm)" #instructorForm="ngForm"> -->
       <fieldset>
-        <div class="form-group row" [ngClass]="{'was-validated': instructorNameVar.touched && !instructorNameVar.valid }">
-          <label class="col-md-2 control-label" for="instructorNameId">Instructor Name:</label>
-          <div class="col-md-8">
-            <input class="form-control" id="instructorNameId" type="text" placeholder="Instructor Name (required)" required pattern="...+"
-              [(ngModel)]="instructor.instructorName" name="instructorName" #instructorNameVar="ngModel" />
-            <div class="alert alert-warning " role="alert" *ngIf="instructorNameVar.touched && instructorNameVar.errors">
-              <span *ngIf="instructorNameVar?.errors.required">
-                Please enter instructor name.
-              </span>
-              <span *ngIf="instructorNameVar?.errors.pattern">
-                The name must be longer than 3 characters.
-              </span>
-            </div>
+
+        <div class="form-group" [ngClass]="{'was-validated': instructorNameVar.touched && !instructorNameVar.valid }">
+          <label class="control-label" for="instructorNameId">Instructor Name:</label>
+          <input class="form-control" id="instructorNameId" type="text" placeholder="Instructor Name (required)" required pattern="...+"
+            [(ngModel)]="instructor.instructorName" name="instructorName" #instructorNameVar="ngModel" />
+          <div class="alert alert-warning " role="alert" *ngIf="instructorNameVar.touched && instructorNameVar.errors">
+            <span *ngIf="instructorNameVar?.errors.required">
+              Please enter instructor name.
+            </span>
+            <span *ngIf="instructorNameVar?.errors.pattern">
+              The name must be longer than 3 characters.
+            </span>
           </div>
         </div>
 
-        <div class="form-group row" [ngClass]="{'was-validated': carVar.touched && !carVar.valid }">
-          <label class="col-md-2 control-label" for="carId">Instructor Car:</label>
-          <div class="col-md-8">
+        <div class="form-row">
+          <div class="form-group col-sm-6" [ngClass]="{'was-validated': carVar.touched && !carVar.valid }">
+            <label class="control-label" for="carId">Instructor Car:</label>
             <input class="form-control" id="carId" type="text" placeholder="Instructor Car (required)" required pattern="...+" [(ngModel)]="instructor.car"
               name="car" #carVar="ngModel" />
             <div class="alert alert-warning " role="alert" *ngIf="carVar.touched && carVar.errors">
@@ -61,11 +57,8 @@
               </span>
             </div>
           </div>
-        </div>
-
-        <div class="form-group row">
-          <label class="col-md-2 control-label" for="gearboxId">Gearbox:</label>
-          <div class="col-md-8">
+          <div class="form-group col-sm-3">
+            <label class="control-label" for="gearboxId">Gearbox:</label>
             <select class="form-control" id="gearboxId" [(ngModel)]="instructor.gearbox" name="gearbox" #gearboxVar="ngModel" (blur)="validateGearbox(gearboxVar.value)"
               (change)="validateGearbox(gearboxVar.value)">
               <!-- <option default value="default">Select a gearbox...</option> -->
@@ -74,6 +67,33 @@
             </select>
             <div class="alert alert-warning " role="alert" *ngIf="hasGearboxError">
               <span>Please select a gearbox.</span>
+            </div>
+          </div>
+          <div class="form-group col-sm-3">
+            <label class="control-label" for="priceId">Price 90 min:</label>
+            <input class="form-control" id="priceId" type="number" placeholder="Price 90 min (required)" required [(ngModel)]="instructor.price90min"
+              name="price" #priceVar="ngModel" />
+            <div class="alert alert-warning " role="alert" *ngIf="priceVar.touched && priceVar.errors">
+              <span>Please enter price.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-sm-6">
+            <label class="control-label" for="phoneId">Phone:</label>
+            <input class="form-control" id="phoneId" type="text" placeholder="+38-0X0-XXX-XXXX (required)" required pattern="\+38-0\d0-\d\d\d\d\d\d\d"
+              [(ngModel)]="instructor.phone" name="phone" #phoneVar="ngModel" />
+            <div class="alert alert-warning " role="alert" *ngIf="phoneVar.touched && phoneVar.errors">
+              <span>Phone ex.: +38-050-1234567</span>
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="control-label" for="cityareaId">Cityarea:</label>
+            <input class="form-control" id="cityareaId" type="text" placeholder="Cityarea (required)" required [(ngModel)]="instructor.cityarea"
+              name="cityarea" #cityareaVar="ngModel" />
+            <div class="alert alert-warning " role="alert" *ngIf="cityareaVar.touched && cityareaVar.errors">
+              <span>Please enter cityarea.</span>
             </div>
           </div>
         </div>
@@ -90,7 +110,8 @@
       <br> Touched: {{ instructorForm.touched }} --- Untouched: {{ instructorForm.untouched }}
       <br> Valid: {{ instructorForm.valid }} --- Invalid: {{ instructorForm.invalid }}
       <br> hasGearboxError: {{hasGearboxError}}
-      <br> Value: {{ instructorForm.value | json }}
+      <br> instructorForm.value: {{ instructorForm.value | json }}
+      <br> instructor: {{ instructor | json }}
     </div>
 
   </div>

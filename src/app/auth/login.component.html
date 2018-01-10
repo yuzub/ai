@@ -1,15 +1,17 @@
 <div class="row">
   <div class="col"></div>
   <div class="col-md-8">
-
+    <div class="text-center">
+      <p>Please, sign in to see info about instructors and feedbacks.</p>
+    </div>
     <div class="card mb-3">
       <div class="card-header text-white bg-primary text-center">{{pageTitle}}</div>
       <div class="card-body">
         <!-- <h4 class="card-title">Please, sign in to see info about instructors and feedbacks</h4> -->
-        <p class="card-text">Please, sign in to see info about instructors and feedbacks.</p>
+        <!-- <p class="card-text">Please, sign in to see info about instructors and feedbacks.</p> -->
         <button class="btn btn-outline-success btn-lg btn-block" (click)="signInAnonymously()">Anonymously</button>
-        <button class="btn btn-outline-success btn-lg btn-block" (click)="createOrSignInWithEmailAndPassword()">Auth with Email and Password</button>
-        <button class="btn btn-outline-success btn-lg btn-block" (click)="signInWithGithub()" disabled>GitHub</button>
+        <!-- <button class="btn btn-outline-success btn-lg btn-block" (click)="createOrSignInWithEmailAndPassword()">Auth with Email and Password</button> -->
+        <!-- <button class="btn btn-outline-success btn-lg btn-block" (click)="signInWithGithub()">GitHub</button> -->
         <button class="btn btn-outline-success btn-lg btn-block" (click)="signInWithGoogle()">Google</button>
         <button class="btn btn-outline-success btn-lg btn-block" (click)="signInWithTwitter()">Twitter</button>
         <button class="btn btn-outline-success btn-lg btn-block" (click)="signInWithFacebook()">Facebook</button>

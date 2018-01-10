@@ -8,6 +8,7 @@
       <input type="text" [(ngModel)]="feedback.text">
     </div>
     <select name="" id="" [(ngModel)]="feedback.instructorKey">
+      <option [value]="null">Please, select instructor</option>
       <option *ngFor="let instructor of instructors$ | async" [value]="instructor.key">{{instructor.instructorName}}</option>
     </select>
 

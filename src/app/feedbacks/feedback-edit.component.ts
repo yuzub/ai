@@ -1,12 +1,14 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
+import { NgForm } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 
 import { AfDbService } from "../shared/af-db.service";
+import { AuthService } from "../auth/auth.service";
+
 import { IFeedback } from "./feedback";
 import { IInstructor } from "../instructors/instructor";
-import { NgForm } from "@angular/forms";
 
 @Component({
   templateUrl: './feedback-edit.component.html'
@@ -23,6 +25,7 @@ export class FeedbackEditComponent implements OnInit, OnDestroy {
 
   constructor(
     private afDbService: AfDbService,
+    // private authService: AuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute) { }
 

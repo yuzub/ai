@@ -20,12 +20,15 @@ import { AfDbService } from './shared/af-db.service';
 import { AuthService } from './auth/auth.service';
 // import { RequireAuthGuard } from './auth/guards/require-auth.guard';
 
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+
 @NgModule({
   declarations: [
     AppComponent, WelcomeComponent, PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
+    CarouselModule.forRoot(),
     AuthModule,
     InstructorModule,
     FeedbackModule,

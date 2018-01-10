@@ -45,6 +45,6 @@ export class InstructorDetailComponent implements OnInit, OnDestroy {
   }
 
   onInsList() {
-    this.router.navigate(['/instructors']);
+    this.router.navigate(['/instructors'], {queryParamsHandling: 'preserve'});
   }
 }

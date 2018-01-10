@@ -1,9 +1,12 @@
 <div class="card mb-3">
 
-  <div class="card-header text-white bg-primary">{{pageTitle}}</div>
+  <div class="card-header text-white bg-primary">
+    {{pageTitle}}
+    user: {{authService.displayName$ | async}} {{authService.uid$ | async}} {{authService.isAdmin$ | async}}
+  </div>
 
   <div class="card-body">
-    <!-- <h4 class="card-title">Primary card title</h4> -->
+    <!-- <h4 class="card-title">Some card title</h4> -->
     <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
 
     <div class="row">
@@ -13,13 +16,12 @@
       </div>
     </div>
 
-    <div class="table-responsive">
-      <table class="table table-striped" *ngIf="instructors$ | async">
-        <thead>
+      <table class="table table-responsive table-striped" *ngIf="instructors$ | async">
+        <thead class="thead-light">
           <tr>
             <th scope="col">
               <button class="btn btn-primary btn-sm" (click)="showPhoto = !showPhoto" style="width: 85px">
-                {{showPhoto ? 'Hide' : 'Show'}} Image
+                {{showPhoto ? 'Hide' : 'Show'}} Photo
               </button>
             </th>
             <th scope="col">Instructor Name</th>
@@ -34,10 +36,10 @@
           <tr *ngFor="let instructor of filteredInstructors">
             <td>
               <img *ngIf="showPhoto" [src]="instructor.photoUrl" [title]="instructor.instructorName | uppercase"
-                 class="img-fluid mx-auto">
+                 class="img-fluid mx-auto d-block rounded-circle">
             </td>
             <td>
-              <a [routerLink]="['/instructors', instructor.key]">{{instructor.instructorName}}</a>
+              <a [routerLink]="['/instructors', instructor.key]"  [queryParams]="{filterBy: carFilter, showPhoto: showPhoto}">{{instructor.instructorName}}</a>
             </td>
             <td>{{instructor.car}}</td>
             <td>{{instructor.gearbox}}</td>
@@ -46,14 +48,13 @@
               <ai-star [rating]="instructor.starRating"></ai-star>
             </td>
             <td>
-              <a [routerLink]="['/instructors', instructor.key, 'edit']">
+              <a [routerLink]="['/instructors', instructor.key, 'edit']" *ngIf="authService.isAdmin$ | async">
                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
               </a>
             </td>
           </tr>
         </tbody>
       </table>
-    </div>
 
   </div>
 

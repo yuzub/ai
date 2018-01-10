@@ -11,7 +11,6 @@ import { InstructorGuardService } from './instructors/instructor-guard.service';
 import { FeedbackListComponent } from './feedbacks/feedback-list.component';
 
 const routes: Routes = [
-  { path: 'feedbacks', component: FeedbackListComponent },
   { path: 'welcome', component: WelcomeComponent },
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }

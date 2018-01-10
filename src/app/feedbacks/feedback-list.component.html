@@ -16,8 +16,7 @@
       </div>
     </div>
 
-    <div class="table-responsive">
-      <table class="table table-striped" *ngIf="instructors$ | async">
+      <table class="table table-responsive table-striped thead-light" *ngIf="instructors$ | async">
         <thead>
           <tr>
             <th>feedback.payload.key</th>
@@ -41,7 +40,6 @@
           </tr>
         </tbody>
       </table>
-    </div>
 
   </div>
 

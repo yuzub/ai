@@ -10,7 +10,7 @@ export class LoginComponent {
   pageTitle: string = 'Sign in';
 
   constructor(
-    private auth: AuthService,
+    private authService: AuthService,
     private router: Router
   ) { }
 
@@ -19,7 +19,7 @@ export class LoginComponent {
   }
 
   signInAnonymously(): void {
-    this.auth.signInAnonymously()
+    this.authService.signInAnonymously()
       .then(() => this.postSignIn());
   }
 
@@ -28,27 +28,31 @@ export class LoginComponent {
   }
 
   signInWithFacebook(): void {
-    this.auth.signInWithFacebook()
+    this.authService.signInWithFacebook()
       .then(() => this.postSignIn());
   }
 
   signInWithGithub(): void {
-    this.auth.signInWithGithub()
+    this.authService.signInWithGithub()
       .then(() => this.postSignIn());
   }
 
   signInWithGoogle(): void {
-    this.auth.signInWithGoogle()
+    this.authService.signInWithGoogle()
       .then(() => this.postSignIn());
   }
 
   signInWithTwitter(): void {
-    this.auth.signInWithTwitter()
+    this.authService.signInWithTwitter()
       .then(() => this.postSignIn());
   }
 
   private postSignIn(): void {
-    this.router.navigate(['/instructors']);
+    if (this.authService.redirectUrl) {
+      this.router.navigateByUrl(this.authService.redirectUrl);
+    } else {
+      this.router.navigate(['/instructors']);
+    }
   }
 
 }
