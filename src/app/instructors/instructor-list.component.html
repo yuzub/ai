@@ -1,8 +1,7 @@
 <div class="card mb-3">
 
   <div class="card-header text-white bg-primary">
-    {{pageTitle}}
-    user: {{authService.displayName$ | async}} {{authService.uid$ | async}} {{authService.isAdmin$ | async}}
+    {{pageTitle}} user: {{authService.displayName$ | async}} {{authService.uid$ | async}} {{authService.isAdmin$ | async}}
   </div>
 
   <div class="card-body">
@@ -16,8 +15,9 @@
       </div>
     </div>
 
-      <table class="table table-responsive table-striped" *ngIf="instructors$ | async">
-        <thead class="thead-light">
+    <div class="table-responsive">
+      <table class="table table-striped table-sm" *ngIf="instructors$ | async">
+        <thead>
           <tr>
             <th scope="col">
               <button class="btn btn-primary btn-sm" (click)="showPhoto = !showPhoto" style="width: 85px">
@@ -35,15 +35,14 @@
         <tbody>
           <tr *ngFor="let instructor of filteredInstructors">
             <td>
-              <img *ngIf="showPhoto" [src]="instructor.photoUrl" [title]="instructor.instructorName | uppercase"
-                 class="img-fluid mx-auto d-block rounded-circle">
+              <img *ngIf="showPhoto" [src]="instructor.photoUrl" [title]="instructor.instructorName | uppercase" class="img-fluid mx-auto d-block rounded-circle">
             </td>
             <td>
-              <a [routerLink]="['/instructors', instructor.key]"  [queryParams]="{filterBy: carFilter, showPhoto: showPhoto}">{{instructor.instructorName}}</a>
+              <a [routerLink]="['/instructors', instructor.key]" [queryParams]="{filterBy: carFilter, showPhoto: showPhoto}">{{instructor.instructorName}}</a>
             </td>
             <td>{{instructor.car}}</td>
             <td>{{instructor.gearbox}}</td>
-            <td>{{instructor.price90min | currency: 'UAH' : code : '1.2-2'}}</td>
+            <td>{{instructor.price90min | currency: 'UAH' : 'symbol' : '1.2-2'}}</td>
             <td>
               <ai-star [rating]="instructor.starRating"></ai-star>
             </td>
@@ -55,6 +54,7 @@
           </tr>
         </tbody>
       </table>
+    </div>
 
   </div>
 

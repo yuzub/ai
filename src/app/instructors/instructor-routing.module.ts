@@ -9,12 +9,28 @@ import { InstructorEditComponent } from "./instructor-edit.component";
 import { InstructorGuardService } from "./instructor-guard.service";
 import { RequireAuthGuard } from "../auth/guards/require-auth.guard";
 import { AdminGuard } from "../auth/guards/admin.guard";
+import { InstructorResolver } from "./instructor-resolver.service";
 
 const routes: Routes = [
-  { path: 'instructors', canActivate: [RequireAuthGuard], component: InstructorListComponent },
-  // { path: 'instructors/new', canActivate: [RequireAuthGuard], component: InstructorCreateComponent },
-  { path: 'instructors/:id', canActivate: [RequireAuthGuard], component: InstructorDetailComponent },
-  { path: 'instructors/:id/edit', canActivate: [RequireAuthGuard, AdminGuard], component: InstructorEditComponent },
+  {
+    path: 'instructors',
+    canActivate: [RequireAuthGuard],
+    children: [
+      {
+        path: '',
+        component: InstructorListComponent,
+      },
+      {
+        path: ':id',
+        component: InstructorDetailComponent
+      },
+      {
+        path: ':id/edit',
+        canActivate: [AdminGuard],
+        component: InstructorEditComponent
+      },
+    ]
+  },
 ]
 
 @NgModule({

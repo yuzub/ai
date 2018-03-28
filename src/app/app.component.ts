@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from './auth/auth.service';
+import { inspect } from 'util';
 
 @Component({
   selector: 'ai-root',
@@ -8,6 +9,9 @@ import { AuthService } from './auth/auth.service';
 })
 export class AppComponent {
   title = 'AI';
+  loading: boolean = true;
 
   constructor(public authService: AuthService) {}
+
+
 }

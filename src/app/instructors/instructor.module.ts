@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import {FormsModule} from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 
 import { SharedModule } from "../shared/shared.module";
 import { InstructorRoutingModule } from "./instructor-routing.module";
@@ -31,4 +31,4 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
   ],
   providers: [InstructorGuardService]
 })
-export class InstructorModule {}
+export class InstructorModule { }

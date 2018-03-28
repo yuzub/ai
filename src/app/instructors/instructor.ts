@@ -21,10 +21,13 @@ export class Instructor implements IInstructor {
     public cityarea: string = '',
     public phone: string = '',
     public starRating: number = 0,
-    public photoUrl: string = '',
-    public carPhotoUrl: string = '',
+    public photoUrl: string,
+    public carPhotoUrl: string,
     public email?: string,
     public key?: string
   ) {}
 
+  price40hours(price: number) {
+    return this.price90min * 20;
+  }
 }

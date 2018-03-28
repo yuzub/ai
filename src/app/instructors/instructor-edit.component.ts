@@ -43,7 +43,7 @@ export class InstructorEditComponent implements OnInit, OnDestroy {
       let id: string = paramMap.get('id');
       console.log(id);
       this.isNewInstructor = id === 'new';
-      this.pageTitle = this.isNewInstructor ? 'Add Instructor' : `Edit Instructor: ${id}`;
+      this.pageTitle = this.isNewInstructor ? 'Add Instructor' : 'Edit Instructor';
       if (!this.isNewInstructor) {
         this.instructor$ = this.getInstructor(id);
       } else {

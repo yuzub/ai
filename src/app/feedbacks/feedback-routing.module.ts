@@ -8,9 +8,21 @@ import { AdminGuard } from "../auth/guards/admin.guard";
 
 
 const routes: Routes = [
-  { path: 'feedbacks', canActivate: [RequireAuthGuard], component: FeedbackListComponent },
-  { path: 'feedbacks/new/edit', canActivate: [RequireAuthGuard], component: FeedbackEditComponent },
-  { path: 'feedbacks/:id/edit', canActivate: [RequireAuthGuard, AdminGuard], component: FeedbackEditComponent },
+  {
+    path: 'feedbacks',
+    canActivate: [RequireAuthGuard],
+    children: [
+      {
+        path: '',
+        component: FeedbackListComponent
+      },
+      {
+        path: ':id/edit',
+        canActivate: [AdminGuard],
+        component: FeedbackEditComponent
+      },
+    ]
+  },
 ]
 
 @NgModule({

@@ -13,16 +13,20 @@ import { Observable } from 'rxjs/Observable';
 export class InstructorDetailComponent implements OnInit, OnDestroy {
   pageTitle: string = 'Instructor Detail';
   instructor$: Observable<IInstructor>;
-  // instructor: IInstructor;
+  instructor: IInstructor;
   // subscriptioN: Subscription;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private afDb: AfDbService) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private afDb: AfDbService
+  ) { }
 
   ngOnInit() {
     let id: string = this.activatedRoute.snapshot.paramMap.get('id');
-    this.pageTitle += `: ${id}`;
 
     this.instructor$ = this.getInstructor(id);
+
 /*     this.subscriptioN = this.instructor$
       .subscribe(
       i => {

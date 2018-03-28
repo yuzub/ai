@@ -1,20 +1,21 @@
+<!-- <i class="fa fa-spinner fa-pulse fa-3x fa-fw spinner" *ngIf="loading"></i> -->
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
   <a class="navbar-brand" [routerLink]="['/welcome']">AI Dnepr</a>
 
   <ul class="navbar-nav mr-auto">
-    <li class="nav-item">
+    <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
       <a class="nav-link" [routerLink]="['/instructors']" routerLinkActive="active" title="Instructors">
         Instructors
         <!-- <i class="fa fa-users fa-lg" aria-hidden="true"></i> -->
       </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
       <a class="nav-link" [routerLink]="['/feedbacks']" routerLinkActive="active" title="Feedbacks">
         Feedbacks
         <!-- <i class="fa fa-commenting-o fa-lg" aria-hidden="true"></i> -->
       </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" routerLinkActive="active">
       <a class="nav-link" [routerLink]="['/instructors/new/edit']" routerLinkActive="active" title="Add Instructors">
         Add Instructor
         <!-- <i class="fa fa-user-plus fa-lg" aria-hidden="true"></i> -->
@@ -23,7 +24,7 @@
   </ul>
 
   <ul class="navbar-nav">
-    <li class="nav-item" *ngIf="!(authService.authenticated$ | async)">
+    <li class="nav-item" *ngIf="!(authService.authenticated$ | async)" routerLinkActive="active">
       <a class="nav-link" routerLink="/login">Sign in</a>
     </li>
     <li class="nav-item" *ngIf="(authService.authenticated$ | async)">
